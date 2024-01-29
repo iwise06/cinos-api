@@ -8,7 +8,6 @@ print(drink.get_flavors())
 print(drink.get_base())
 print(drink.get_total())
 
-
 # Examples for Order class
 drink1 = Drink('water', ['lemon', 'cherry'])
 drink2 = Drink('sbrite', ['lime'])
