@@ -4,6 +4,7 @@ class Drink:
     valid_flavors = ['lemon', 'cherry',
                      'strawberry', 'mint', 'blueberry', 'lime']
 
+    # Function to validate flavors and raise errors if needed
     def __validate_flavors(self, flavors):
         unique_flavors = []
 
@@ -16,9 +17,11 @@ class Drink:
             unique_flavors.append(flavor)
 
     def __init__(self, base, flavors):
+        # Check if base is a list and raise error if it has more than one string
         if isinstance(base, list) and len(base) > 1:
             raise ValueError('Only one base is allowed')
 
+        # Check if the base is an invalid base and raise error if it is
         if base not in self.valid_bases:
             raise ValueError(f'Invalid base: {base}')
 
@@ -75,6 +78,7 @@ class Order:
         return total
 
     def add_item(self, drink):
+        # Make sure the argument is a drink class
         if not isinstance(drink, Drink):
             raise ValueError('Only drinks can be added to an order')
 
