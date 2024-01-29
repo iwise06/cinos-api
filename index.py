@@ -17,7 +17,8 @@ class Drink:
             unique_flavors.append(flavor)
 
     def __init__(self, base, flavors):
-        # Check if base is a list and raise error if it has more than one string
+        # Check if base is a list and raise an error if it has more than one
+        # string
         if isinstance(base, list) and len(base) > 1:
             raise ValueError('Only one base is allowed')
 
