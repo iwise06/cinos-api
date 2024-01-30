@@ -1,12 +1,11 @@
 from Drink import Drink
 
 class Order:
-    def __init__(self, drinks):
+    def __init__(self, drinks: list[Drink]):
         self._drinks = drinks
 
     def get_items(self):
-        for drink in self._drinks:
-            print(f'{drink.get_base()} with {drink.get_flavors()}')
+        return self._drinks
 
     def get_num_items(self):
         return len(self._drinks)
