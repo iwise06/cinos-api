@@ -5,7 +5,8 @@ class Drink:
                      'strawberry', 'mint', 'blueberry', 'lime']
 
     # Function to validate flavors and raise errors if needed
-    def __validate_flavors(self, flavors):
+    # Change this and use sets
+    def _validate_flavors(self, flavors):
         unique_flavors = []
 
         for flavor in flavors:
@@ -26,28 +27,28 @@ class Drink:
         if base not in self.valid_bases:
             raise ValueError(f'Invalid base: {base}')
 
-        self.__validate_flavors(flavors)
+        self._validate_flavors(flavors)
 
-        self.__base = base
-        self.__flavors = flavors
-        self.__cost = 1
+        self._base = base
+        self._flavors = flavors
+        self._cost = 1
 
     def get_flavors(self):
-        return self.__flavors
+        return self._flavors
 
     def get_base(self):
-        return self.__base
+        return self._base
 
     def get_total(self):
-        return self.__cost
+        return self._cost
 
     def get_num_flavors(self):
-        return len(self.__flavors)
+        return len(self._flavors)
 
     def set_flavors(self, flavors):
-        self.__validate_flavors(flavors)
-        self.__flavors = flavors
+        self._validate_flavors(flavors)
+        self._flavors = flavors
 
     def add_flavor(self, flavor):
-        self.__validate_flavors([flavor])
-        self.__flavors.append(flavor)
+        self.validate_flavors([flavor])
+        self._flavors.append(flavor)
