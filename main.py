@@ -16,4 +16,4 @@ order = Order([drink1, drink2])
 
 order.add_item(Drink('pokeacola', ['mint', 'blueberry']))
 order.remove_item(1)
-order.get_items()
+print(order.get_items)
