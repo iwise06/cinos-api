@@ -4,19 +4,6 @@ class Drink:
     valid_flavors = ['lemon', 'cherry',
                      'strawberry', 'mint', 'blueberry', 'lime']
 
-    # Function to validate flavors and raise errors if needed
-    # Change this and use sets
-    def _validate_flavors(self, flavors):
-        unique_flavors = []
-
-        for flavor in flavors:
-            if flavor not in self.valid_flavors:
-                raise ValueError(f'Invalid flavor: {flavor}')
-            if flavor in unique_flavors:
-                raise ValueError(f'Duplicate flavor: {flavor}')
-
-            unique_flavors.append(flavor)
-
     def __init__(self, base, flavors):
         # Check if base is a list and raise an error if it has more than one
         # string
@@ -32,6 +19,19 @@ class Drink:
         self._base = base
         self._flavors = flavors
         self._cost = 1
+
+    # Function to validate flavors and raise errors if needed
+    # Change this and use sets
+    def _validate_flavors(self, flavors):
+        unique_flavors = []
+
+        for flavor in flavors:
+            if flavor not in self.valid_flavors:
+                raise ValueError(f'Invalid flavor: {flavor}')
+            if flavor in unique_flavors:
+                raise ValueError(f'Duplicate flavor: {flavor}')
+
+            unique_flavors.append(flavor)
 
     def get_flavors(self):
         return self._flavors
