@@ -1,5 +1,6 @@
 from Drink import Drink
 
+
 class Order:
     def __init__(self, drinks: list[Drink]):
         self._drinks = drinks
