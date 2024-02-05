@@ -20,6 +20,13 @@ class Drink:
         self._flavors = flavors
         self._cost = 1
 
+    # Need to to implement __eq__ method to compare drinks since
+    # the default __eq__ method compares the memory location of the objects
+    def __eq__(self, other):
+        if not isinstance(other, Drink):
+            return False
+        return self._base == other._base and self._flavors == other._flavors
+        
     # Function to validate flavors and raise errors if needed
     # Change this and use sets
     def _validate_flavors(self, flavors):

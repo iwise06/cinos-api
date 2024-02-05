@@ -19,12 +19,12 @@ class TestOrder(unittest.TestCase):
                         total: 4.15 + round(4.15 * .0725, 2),
                         drinks: [
                             {
-                                drink: order[0],
-                                cost: order[0].get_total()
+                                drink: Drink('water', ['lemon', 'cherry'], 'small'),
+                                cost: Drink('water', ['lemon', 'cherry'], 'small').get_total()
                             }, 
                             {
-                                drink: order[1],
-                                cost: order[1].get_total()
+                                drink: Drink('water', ['lemon', 'cherry'], 'large'),
+                                cost: Drink('water', ['lemon', 'cherry'], 'large').get_total()
                             }
                         ],
                     })
@@ -43,7 +43,9 @@ class TestOrder(unittest.TestCase):
         order = Order([Drink('water', ['lemon', 'cherry'])])
         order.add_item(Drink('water', ['lemon', 'cherry']))
         self.assertEqual(
-            order.get_items(), [order[0], order[1]])
+            order.get_items(), [
+                Drink('water', ['lemon', 'cherry']),
+                Drink('water', ['lemon', 'cherry'])])
 
     def test_remove_item(self):
         order = Order([Drink('water', ['lemon', 'cherry']),
