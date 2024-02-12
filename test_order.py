@@ -12,7 +12,6 @@ class TestOrder(unittest.TestCase):
     def test_get_receipt(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
                       Drink('water', ['lemon', 'cherry'], 'large')])
-        print(order.get_receipt())
 
         self.assertEqual(order.get_receipt(), {
             'drink_amount': 2,
