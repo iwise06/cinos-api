@@ -4,7 +4,7 @@ class Drink:
     valid_flavors = ['lemon', 'cherry',
                      'strawberry', 'mint', 'blueberry', 'lime']
 
-    def __init__(self, base, flavors):
+    def __init__(self, base, flavors, size):
         # Check if base is a list and raise an error if it has more than one
         # string
         if isinstance(base, list) and len(base) > 1:
@@ -14,11 +14,15 @@ class Drink:
         if base not in self.valid_bases:
             raise ValueError(f'Invalid base: {base}')
 
+        if size not in ['small', 'medium', 'large', 'mega']:
+            raise ValueError(f'Invalid size: {size}')
+
         self._validate_flavors(flavors)
 
         self._base = base
         self._flavors = flavors
-        self._cost = 1
+        self._size = size
+        self._cost = self._calculate_cost()
 
     # Need to to implement __eq__ method to compare drinks since
     # the default __eq__ method compares the memory location of the objects
@@ -26,9 +30,16 @@ class Drink:
         if not isinstance(other, Drink):
             return False
         return self._base == other._base and self._flavors == other._flavors
-        
+
+    def _calculate_cost(self):
+        size_costs = {'small': 1.5, 'medium': 1.75,
+                      'large': 2.05, 'mega': 2.15}
+
+        return round(size_costs[self._size] + 0.15 * len(self._flavors), 2)
+
     # Function to validate flavors and raise errors if needed
     # Change this and use sets
+
     def _validate_flavors(self, flavors):
         unique_flavors = []
 
@@ -59,3 +70,20 @@ class Drink:
     def add_flavor(self, flavor):
         self._validate_flavors([flavor])
         self._flavors.append(flavor)
+
+    def get_size(self):
+        return self._size
+
+    def set_size(self, size):
+        if size not in ['small', 'medium', 'large', 'mega']:
+            raise ValueError(f'Invalid size: {size}')
+        self._size = size
+        self._cost = self._calculate_cost()
+
+    def to_dict(self):
+        return {
+            'base': self._base,
+            'flavors': self._flavors,
+            'size': self._size,
+            'cost': self._cost
+        }

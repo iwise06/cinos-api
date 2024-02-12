@@ -30,3 +30,19 @@ class Order:
             raise ValueError('Invalid index')
 
         self._drinks.pop(index)
+
+    def get_receipt(self):
+        return {
+            'drink_amount': self.get_num_items(),
+            'subtotal': self.get_total(),
+            'tax': round(self.get_total() * .0725, 2),
+            'total': self.get_total() + round(self.get_total() * .0725, 2),
+            'drinks': [
+                {
+                    'base': drink.get_base(),
+                    'flavors': drink.get_flavors(),
+                    'size': drink.get_size(),
+                    'cost': drink.get_total()
+                } for drink in self._drinks
+            ],
+        }
