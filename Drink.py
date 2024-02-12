@@ -40,14 +40,14 @@ class Drink:
         if base not in self.valid_bases:
             raise ValueError(f'Invalid base: {base}')
 
-        if size not in ['small', 'medium', 'large', 'mega']:
+        if size.lower() not in ['small', 'medium', 'large', 'mega']:
             raise ValueError(f'Invalid size: {size}')
 
         self._validate_flavors(flavors)
 
         self._base = base
         self._flavors = flavors
-        self._size = size
+        self._size = size.lower()
         self._cost = self._calculate_cost()
 
     # Need to to implement __eq__ method to compare drinks since
