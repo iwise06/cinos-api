@@ -7,8 +7,9 @@ from Food import Food
 class TestOrder(unittest.TestCase):
     def test_get_total(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
-                      Drink('water', ['lemon', 'cherry'], 'large')])
-        self.assertEqual(order.get_total(), 4.15)
+                      Drink('water', ['lemon', 'cherry'], 'large'),
+                      Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
+        self.assertEqual(order.get_total(), 8.15)
 
     def test_get_receipt(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
@@ -46,29 +47,36 @@ class TestOrder(unittest.TestCase):
 
     def test_get_items(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
-                       Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
+                      Drink('water', ['lemon', 'cherry'], 'large'),
+                      Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
         self.assertEqual(order.get_items(), [
                          Drink('water', ['lemon', 'cherry'], 'small'),
+                         Drink('water', ['lemon', 'cherry'], 'large'),
                          Food('ice cream', [
                               'caramel sauce', 'chocolate sauce'])
                          ])
 
     def test_get_num_items(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
-                      Drink('water', ['lemon', 'cherry'], 'small')])
-        self.assertEqual(order.get_num_items(), 2)
+                      Drink('water', ['lemon', 'cherry'], 'small'),
+                      Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
+        self.assertEqual(order.get_num_items(), 3)
 
     def test_add_item(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small')])
         order.add_item(Drink('water', ['lemon', 'cherry'], 'small'))
+        order.add_item(Food('ice cream', ['caramel sauce', 'chocolate sauce']))
         self.assertEqual(
             order.get_items(), [
                 Drink('water', ['lemon', 'cherry'], 'small'),
-                Drink('water', ['lemon', 'cherry'], 'small')])
+                Drink('water', ['lemon', 'cherry'], 'small'),
+                Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
 
     def test_remove_item(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
-                      Drink('water', ['lemon', 'cherry'], 'small')])
+                      Drink('water', ['lemon', 'cherry'], 'small'),
+                      Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
         order.remove_item(1)
         self.assertEqual(order.get_items(), [
-                         Drink('water', ['lemon', 'cherry'], 'small')])
+                         Drink('water', ['lemon', 'cherry'], 'small'),
+                         Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
