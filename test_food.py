@@ -3,9 +3,9 @@ from Food import Food
 
 
 class TestFood(unittest.TestCase):
-    def test_get_name(self):
+    def test_get_base(self):
         food = Food('hotdog', ['mustard'])
-        self.assertEqual(food.get_name(), 'hotdog')
+        self.assertEqual(food.get_base(), 'hotdog')
 
     def test_get_total(self):
         food = Food('ice cream', ['caramel sauce', 'chocolate sauce'])
