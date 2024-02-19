@@ -1,88 +1,97 @@
-"""Order class that contains a list of drinks and methods related to the order.
+"""Order class that contains a list of drinks and food as well as methods related to the order.
 
-This class contains a list of drinks and methods to get the total cost of the order, get the receipt, 
+This class contains a list of drinks and food as well as methods to get the total cost of the order, get the receipt, 
 get the items in the order, get the number of items in the order, add an item to the order, and remove an item from the order.
 
 Typical usage example:
-    order = Order([Drink('water', ['lemon', 'cherry'], 'small'))
+    order = Order([Drink('water', ['lemon', 'cherry'], 'small'), Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
 """
 
 from Drink import Drink
+from Food import Food
 
 
 class Order:
-    """Class that contains a list of drinks and methods related to the order.
+    """Class that contains a list of drinks and food as well as methods related to the order.
 
     Attributes:
-        drinks: A list of drinks in the order.
+        items: A list of items in the order.
     """
 
-    def __init__(self, drinks: list[Drink]):
-        """Initializes the order with a list of drinks.
+    def __init__(self, items):
+        """Initializes the order with a list of items.
 
         Args:
-            drinks: A list of drinks in the order.
+            items: A list of items in the order.
         """
-        self._drinks = drinks
+        self._items = items
 
     def get_items(self):
-        """Returns the list of drinks in the order."""
-        return self._drinks
+        """Returns the list of items in the order."""
+        return self._items
 
     def get_num_items(self):
-        """Returns the number of drinks in the order."""
-        return len(self._drinks)
+        """Returns the number of items in the order."""
+        return len(self._items)
 
     def get_total(self):
         """Returns the total cost of the order."""
         total = 0
-        for drink in self._drinks:
-            total += drink.get_total()
+        for item in self._items:
+            total += item.get_total()
 
         return total
 
-    def add_item(self, drink):
-        """Adds a drink to the order.
+    def add_item(self, item):
+        """Adds a item to the order.
 
         Args:
-            drink: A drink to be added to the order.
+            item: An item to be added to the order.
 
         Raises:
-            ValueError: If the argument is not a drink class.
+            ValueError: If the argument is not a drink or food class.
         """
-        # Make sure the argument is a drink class
-        if not isinstance(drink, Drink):
-            raise ValueError('Only drinks can be added to an order')
 
-        self._drinks.append(drink)
+        # Make sure the argument is a drink or food class
+        if not isinstance(item, (Drink, Food)):
+            raise ValueError('Only drinks and food can be added to an order')
+
+        self._items.append(item)
 
     def remove_item(self, index):
-        """Removes a drink from the order.
+        """Removes a item from the order.
 
         Args:
-            index: The index of the drink to be removed from the order.
+            index: The index of the item to be removed from the order.
 
         Raises:
             ValueError: If the index is invalid.
         """
-        if index < 0 or index >= len(self._drinks):
+        if index < 0 or index >= len(self._items):
             raise ValueError('Invalid index')
 
-        self._drinks.pop(index)
+        self._items.pop(index)
 
     def get_receipt(self):
         """Returns a dictionary containing the receipt for the order."""
         return {
-            'drink_amount': self.get_num_items(),
+            'item_amount': self.get_num_items(),
             'subtotal': self.get_total(),
             'tax': round(self.get_total() * .0725, 2),
             'total': self.get_total() + round(self.get_total() * .0725, 2),
-            'drinks': [
+            'items': [
                 {
-                    'base': drink.get_base(),
-                    'flavors': drink.get_flavors(),
-                    'size': drink.get_size(),
-                    'cost': drink.get_total()
-                } for drink in self._drinks
+                    'type': 'drink',
+                    'base': item.get_base() if isinstance(item, Drink) else None,
+                    'flavors': item.get_flavors() if isinstance(item, Drink) else None,
+                    'size': item.get_size() if isinstance(item, Drink) else None,
+                    'cost': item.get_total()
+                } if isinstance(item, Drink) else
+                {
+                    'type': 'food',
+                    'base': item.get_base(),
+                    'toppings': item.get_toppings(),
+                    'cost': item.get_total()
+                } for item in self._items
             ],
         }

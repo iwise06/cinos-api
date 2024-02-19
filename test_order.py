@@ -12,31 +12,32 @@ class TestOrder(unittest.TestCase):
 
     def test_get_receipt(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
-                      Drink('water', ['lemon', 'cherry'], 'large')],
-                      Food('ice cream', ['caramel sauce', 'chocolate sauce']))
+                      Drink('water', ['lemon', 'cherry'], 'large'),
+                      Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
 
         self.assertEqual(order.get_receipt(), {
             'item_amount': 3,
             'subtotal': 8.15,
             'tax': round(8.15 * .0725, 2),
             'total': 8.15 + round(8.15 * .0725, 2),
-            'drinks': [
+            'items': [
                 {
+                    'type': 'drink',
                     'base': Drink('water', ['lemon', 'cherry'], 'small').get_base(),
                     'flavors': Drink('water', ['lemon', 'cherry'], 'small').get_flavors(),
                     'size': Drink('water', ['lemon', 'cherry'], 'small').get_size(),
                     'cost': Drink('water', ['lemon', 'cherry'], 'small').get_total()
                 },
                 {
+                    'type': 'drink',
                     'base': Drink('water', ['lemon', 'cherry'], 'large').get_base(),
                     'flavors': Drink('water', ['lemon', 'cherry'], 'large').get_flavors(),
                     'size': Drink('water', ['lemon', 'cherry'], 'large').get_size(),
                     'cost': Drink('water', ['lemon', 'cherry'], 'large').get_total()
-                }
-            ],
-            'food': [
+                },
                 {
-                    'name': Food('ice cream', ['caramel sauce', 'chocolate sauce']).get_name(),
+                    'type': 'food',
+                    'base': Food('ice cream', ['caramel sauce', 'chocolate sauce']).get_base(),
                     'toppings': Food('ice cream', ['caramel sauce', 'chocolate sauce']).get_toppings(),
                     'cost': Food('ice cream', ['caramel sauce', 'chocolate sauce']).get_total()
                 }
@@ -44,9 +45,13 @@ class TestOrder(unittest.TestCase):
         })
 
     def test_get_items(self):
-        order = Order([Drink('water', ['lemon', 'cherry'], 'small')])
+        order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
+                       Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
         self.assertEqual(order.get_items(), [
-                         Drink('water', ['lemon', 'cherry'], 'small')])
+                         Drink('water', ['lemon', 'cherry'], 'small'),
+                         Food('ice cream', [
+                              'caramel sauce', 'chocolate sauce'])
+                         ])
 
     def test_get_num_items(self):
         order = Order([Drink('water', ['lemon', 'cherry'], 'small'),
