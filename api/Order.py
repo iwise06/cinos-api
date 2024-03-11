@@ -4,11 +4,12 @@ This class contains a list of drinks and food as well as methods to get the tota
 get the items in the order, get the number of items in the order, add an item to the order, and remove an item from the order.
 
 Typical usage example:
-    order = Order([Drink('water', ['lemon', 'cherry'], 'small'), Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
+    order = Order([Drink('water', ['lemon', 'cherry'], 'small'), Food('ice cream', ['caramel sauce', 'chocolate sauce']), IceStorm('chocolate', ['dig dogs', 'cherry'])])
 """
 
 from api.Drink import Drink
 from api.Food import Food
+from api.IceStorm import IceStorm
 
 
 class Order:
@@ -53,7 +54,7 @@ class Order:
         """
 
         # Make sure the argument is a drink or food class
-        if not isinstance(item, (Drink, Food)):
+        if not isinstance(item, (Drink, Food, IceStorm)):
             raise ValueError('Only drinks and food can be added to an order')
 
         self._items.append(item)
@@ -82,13 +83,19 @@ class Order:
             'items': [
                 {
                     'type': 'drink',
-                    'base': item.get_base() if isinstance(item, Drink) else None,
-                    'flavors': item.get_flavors() if isinstance(item, Drink) else None,
-                    'size': item.get_size() if isinstance(item, Drink) else None,
+                    'base': item.get_base(),
+                    'flavors': item.get_flavors(),
+                    'size': item.get_size(),
                     'cost': item.get_total()
                 } if isinstance(item, Drink) else
                 {
                     'type': 'food',
+                    'base': item.get_base(),
+                    'toppings': item.get_toppings(),
+                    'cost': item.get_total()
+                } if isinstance(item, Food) else
+                {
+                    'type': 'icestorm',
                     'base': item.get_base(),
                     'toppings': item.get_toppings(),
                     'cost': item.get_total()
