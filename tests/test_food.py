@@ -1,5 +1,5 @@
 import unittest
-from Food import Food
+from api.Food import Food
 
 
 class TestFood(unittest.TestCase):

@@ -7,8 +7,8 @@ Typical usage example:
     order = Order([Drink('water', ['lemon', 'cherry'], 'small'), Food('ice cream', ['caramel sauce', 'chocolate sauce'])])
 """
 
-from Drink import Drink
-from Food import Food
+from api.Drink import Drink
+from api.Food import Food
 
 
 class Order:

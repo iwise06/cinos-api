@@ -1,7 +1,7 @@
 import unittest
-from Order import Order
-from Drink import Drink
-from Food import Food
+from api.Order import Order
+from api.Drink import Drink
+from api.Food import Food
 
 
 class TestOrder(unittest.TestCase):

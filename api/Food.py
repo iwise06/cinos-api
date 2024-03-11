@@ -86,11 +86,11 @@ class Food:
         return self._cost
 
     def get_num_toppings(self):
-        """Returns the number of toppings of the food."""
+        """Returns the number of toppings on the food."""
         return len(self._toppings)
 
     def get_toppings(self):
-        """Returns the list of toppings of the food."""
+        """Returns the list of toppings on the food."""
         return self._toppings
 
     def set_toppings(self, toppings):
